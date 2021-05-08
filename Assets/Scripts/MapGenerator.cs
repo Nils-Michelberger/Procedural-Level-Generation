@@ -14,7 +14,7 @@ public class MapGenerator : MonoBehaviour
     };
     public DrawMode drawMode;
 
-    private const int mapChunkSize = 241;
+    public const int mapChunkSize = 241;
     // default = 1 || possible values = 1, 2, 4, 6, 8, 10, 12
     [Range(0, 6)]
     public int levelOfDetail;
