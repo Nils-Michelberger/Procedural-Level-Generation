@@ -345,38 +345,38 @@ MonoBehaviour:
   drawMode: 1
   mapWidth: 100
   mapHeight: 100
-  noiseScale: 26.4
+  noiseScale: 33.33
   octaves: 4
   persistance: 0.31
-  lacunarity: 3.15
-  seed: 948
-  offset: {x: -7.8, y: 23.7}
+  lacunarity: 2.81
+  seed: 962
+  offset: {x: -5.79, y: 23.7}
   autoUpdate: 1
   regions:
   - name: Deep Water
     height: 0.2
-    color: {r: 0.09024564, g: 0.1764706, b: 0.49056602, a: 0}
-  - name: Shallow Water
+    color: {r: 0.13737096, g: 0.48580956, b: 0.5943396, a: 0}
+  - name: Water
+    height: 0.3
+    color: {r: 0.19215687, g: 0.6711564, b: 0.8207547, a: 0}
+  - name: Sand
     height: 0.35
-    color: {r: 0.12941177, g: 0.36078432, b: 0.5372549, a: 0}
-  - name: Beach
-    height: 0.4
-    color: {r: 0.76777416, g: 0.7735849, b: 0.30286577, a: 0}
+    color: {r: 0.8396226, g: 0.7907146, b: 0.38416696, a: 0}
   - name: Grass
     height: 0.5
-    color: {r: 0.28874597, g: 0.745283, b: 0.26366144, a: 0}
+    color: {r: 0.1990477, g: 0.6698113, b: 0.2013964, a: 0}
   - name: Land
     height: 0.65
-    color: {r: 0.18710558, g: 0.5188679, b: 0.16887683, a: 0}
+    color: {r: 0.13714845, g: 0.4339623, b: 0.13714845, a: 0}
   - name: Rock
     height: 0.8
-    color: {r: 0.3679245, g: 0.26897767, b: 0.22734958, a: 0}
+    color: {r: 0.4528302, g: 0.25564113, b: 0.1473834, a: 0}
   - name: Mountain
     height: 0.9
-    color: {r: 0.2735849, g: 0.20278694, b: 0.1716358, a: 0}
+    color: {r: 0.2924528, g: 0.15715626, b: 0.08139017, a: 0}
   - name: Snow
     height: 1
-    color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0}
+    color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 0}
 --- !u!4 &1889483987
 Transform:
   m_ObjectHideFlags: 0
