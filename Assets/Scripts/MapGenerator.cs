@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
 
     public Noise.NormalizeMode normalizeMode;
 
-    public const int mapChunkSize = 241;
+    public const int mapChunkSize = 239;
     // default = 1 || possible values = 1, 2, 4, 6, 8, 10, 12
     [Range(0, 6)]
     public int editorPreviewLevelOfDetail;
@@ -158,7 +158,7 @@ public class MapGenerator : MonoBehaviour
 
     private MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance,
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistance,
             lacunarity, center + offset, normalizeMode);
 
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
@@ -171,7 +171,7 @@ public class MapGenerator : MonoBehaviour
                 if (useFalloff)
                 {
                     // value at the end indicates falloff strength
-                    // TODO make accessible in editor
+                    // TODO: make accessible in editor
                     noiseMap[x, y] = Mathf.Clamp01(noiseMap[x, y] - (falloffMap[x, y] * 1.5f));
                 }
                 
