@@ -5,6 +5,7 @@ using UnityEngine;
 public class EndlessTerrain : MonoBehaviour
 {
     // scale the whole map depending on player scale
+    // TODO make accessible in editor
     private const float scale = 1f;
     
     private const float viewerMoveThresholdForChunkUpdate = 25f;
