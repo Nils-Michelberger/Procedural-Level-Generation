@@ -6,6 +6,7 @@ public static class MeshGenerator
 {
     public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfDetail)
     {
+        AnimationCurve heightCurveCopy = new AnimationCurve(heightCurve.keys);
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
         
@@ -25,7 +26,7 @@ public static class MeshGenerator
             for (int x = 0; x < width; x+= meshSimplificationIncrement)
             {
                 // creating centered vertex
-                meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier, topLeftZ - y);
+                meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightCurveCopy.Evaluate(heightMap[x, y]) * heightMultiplier, topLeftZ - y);
                 meshData.uvs[vertexIndex] = new Vector2(x / (float) width, y / (float) height);
                 
                 // generate two triangles for each vertex (excluding bottom and right border vertices)
