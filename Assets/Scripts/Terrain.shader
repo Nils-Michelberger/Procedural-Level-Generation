@@ -17,10 +17,12 @@ Shader "Custom/Terrain"
         #pragma target 3.0
 
         const static int maxColorCount = 8;
+        const static float epsilon = 1E-4;
         
         int baseColorCount;
         float3 baseColors[maxColorCount];
         float baseStartHeights[maxColorCount];
+        float baseBlends[maxColorCount];
         
         float minHeight;
         float maxHeight;
@@ -47,7 +49,7 @@ Shader "Custom/Terrain"
             float heightPercent = inverseLerp(minHeight, maxHeight, IN.worldPos.y);
             for (int i = 0; i < baseColorCount; i++)
             {
-                float drawStrength = saturate(sign(heightPercent - baseStartHeights[i]));
+                float drawStrength = inverseLerp(-baseBlends[i]/2 - epsilon, baseBlends[i]/2, heightPercent - baseStartHeights[i]);
                 o.Albedo = o.Albedo * (1-drawStrength) + baseColors[i] * drawStrength;
             }
         }
