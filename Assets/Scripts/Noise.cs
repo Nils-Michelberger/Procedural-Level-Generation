@@ -4,15 +4,16 @@ using UnityEngine;
 
 public static class Noise
 {
-    // local = values are getting localized by setting max and min depending on generated values (max, min is changing during runtime)
     // global = values are getting localized by estimate (max, min is defined by a constant)
+    // local = values are getting localized by setting max and min depending on generated values (max, min is changing during runtime) (CREATES GAPS!)
     public enum NormalizeMode
     {
-        Local,
-        Global
+        Global,
+        Local
     }
-    
-    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance,
+
+    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves,
+        float persistance,
         float lacunarity, Vector2 offset, NormalizeMode normalizeMode)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
@@ -54,7 +55,7 @@ public static class Noise
                 amplitude = 1;
                 float frequency = 1;
                 float noiseHeight = 0;
-                
+
                 // apply details (layering octaves)
                 for (int i = 0; i < octaves; i++)
                 {
@@ -77,7 +78,7 @@ public static class Noise
                 {
                     minLocalNoiseHeight = noiseHeight;
                 }
-                
+
                 noiseMap[x, y] = noiseHeight;
             }
         }

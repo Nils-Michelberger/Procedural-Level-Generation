@@ -5,8 +5,10 @@ using UnityEngine;
 public class EndlessTerrain : MonoBehaviour
 {
     private const float viewerMoveThresholdForChunkUpdate = 25f;
-    private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
-    
+
+    private const float sqrViewerMoveThresholdForChunkUpdate =
+        viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
+
     public LODInfo[] detailLevels;
     public static float maxViewDist;
 
@@ -32,20 +34,19 @@ public class EndlessTerrain : MonoBehaviour
         maxViewDist = detailLevels[detailLevels.Length - 1].visibleDistThreshold;
         chunkSize = mapGenerator.mapChunkSize - 1; // 241 - 1 = 240
         chunksVisibleInViewDist = Mathf.RoundToInt(maxViewDist / chunkSize);
-        
+
         UpdateVisibleChunks();
     }
 
     void Update()
     {
         viewerPositon = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.terrainData.uniformScale;
-        
+
         if ((viewerPositionOld - viewerPositon).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
         {
             viewerPositionOld = viewerPositon;
             UpdateVisibleChunks();
         }
-        
     }
 
     void UpdateVisibleChunks()
@@ -187,7 +188,7 @@ public class EndlessTerrain : MonoBehaviour
                             collisionLODMesh.RequestMesh(mapData);
                         }
                     }
-                    
+
                     terrainChunksVisibleLastUpdate.Add(this);
                 }
 

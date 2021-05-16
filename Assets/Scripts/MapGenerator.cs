@@ -19,9 +19,8 @@ public class MapGenerator : MonoBehaviour
     public TerrainData terrainData;
     public NoiseData noiseData;
     public TextureData textureData;
-
     public Material terrainMaterial;
-    
+
     // default = 1 || possible values = 1, 2, 4, 6, 8, 10, 12
     [Range(0, 6)] public int editorPreviewLevelOfDetail;
 
@@ -183,6 +182,8 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+        
+        textureData.UpdateMeshHeight(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         return new MapData(noiseMap);
     }
