@@ -21,8 +21,14 @@ public class MapGenerator : MonoBehaviour
     public TextureData textureData;
     public Material terrainMaterial;
 
-    // default = 1 || possible values = 1, 2, 4, 6, 8, 10, 12
-    [Range(0, 6)] public int editorPreviewLevelOfDetail;
+    [Range(0, MeshGenerator.numSupportedChunkSizes - 1)]
+    public int chunkSizeIndex;
+    [Range(0, MeshGenerator.numSupportedFlatshadedChunkSizes - 1)]
+    public int flatshadedChunkSizeIndex;
+
+    // default = 1 || possible values = 1, 2, 4, 6, 8
+    [Range(0, MeshGenerator.numSupportedLODs - 1)]
+    public int editorPreviewLevelOfDetail;
 
     public bool autoUpdate;
 
@@ -30,6 +36,12 @@ public class MapGenerator : MonoBehaviour
 
     private Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
+
+    private void Awake()
+    {
+        textureData.ApplyToMaterial(terrainMaterial);
+        textureData.UpdateMeshHeight(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+    }
 
     void OnValuesUpdated()
     {
@@ -44,23 +56,26 @@ public class MapGenerator : MonoBehaviour
         textureData.ApplyToMaterial(terrainMaterial);
     }
 
+    // example: 240 + 1 (because we need to subtract 1 in LOD step (w-1)) -> 241-2 (because we have to subtract the border vertices)
+    // result: supportedSize - 1
     public int mapChunkSize
     {
         get
         {
             if (terrainData.useFlatShading)
             {
-                return 95;
+                return MeshGenerator.supportedFlatshadedChunkSizes[flatshadedChunkSizeIndex] - 1;
             }
             else
             {
-                return 239;
+                return MeshGenerator.supportedChunkSizes[chunkSizeIndex] - 1;
             }
         }
     }
 
     public void DrawMapInEditor()
     {
+        textureData.UpdateMeshHeight(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
@@ -182,8 +197,6 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        
-        textureData.UpdateMeshHeight(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         return new MapData(noiseMap);
     }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class NoiseData : UpdatableData
 {
     public Noise.NormalizeMode normalizeMode;
-    
+
     public float noiseScale;
 
     public int octaves;
@@ -18,6 +18,8 @@ public class NoiseData : UpdatableData
 
     public int seed;
     public Vector2 offset;
+
+#if UNITY_EDITOR
 
     // clamp values
     protected override void OnValidate()
@@ -32,7 +34,9 @@ public class NoiseData : UpdatableData
         {
             octaves = 0;
         }
-        
+
         base.OnValidate();
     }
+
+#endif
 }
