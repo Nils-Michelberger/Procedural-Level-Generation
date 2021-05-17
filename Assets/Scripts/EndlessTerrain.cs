@@ -29,6 +29,8 @@ public class EndlessTerrain : MonoBehaviour
     private Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
     private static List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
+    public GameObject tree;
+
     void Start()
     {
         mapGenerator = FindObjectOfType<MapGenerator>();
@@ -87,7 +89,7 @@ public class EndlessTerrain : MonoBehaviour
                     else
                     {
                         terrainChunkDictionary.Add(viewedChunkCoord,
-                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial));
+                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial, tree));
                     }
                 }
             }
@@ -115,11 +117,14 @@ public class EndlessTerrain : MonoBehaviour
         private int previousLODIndex = -1;
         private bool hasSetCollider;
 
-        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Material material)
+        private GameObject tree;
+
+        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Material material, GameObject tree)
         {
             this.coord = coord;
             this.detailLevels = detailLevels;
             this.colliderLODIndex = colliderLODIndex;
+            this.tree = tree;
 
             position = coord * size;
             bounds = new Bounds(position, Vector2.one * size);
@@ -213,6 +218,12 @@ public class EndlessTerrain : MonoBehaviour
                     }
                 }
                 SetVisible(visible);
+                
+                // Spawn trees with spawnPoints
+                foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
+                {
+                    Instantiate(tree, treeSpawnPoint, Quaternion.identity).transform.SetParent(meshObject.transform);
+                }
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class MapGenerator : MonoBehaviour
 
     private Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
+
+    public bool spawnObjects;
+    [Range(0,0.1f)]
+    public float density;
 
     private void Awake()
     {
@@ -172,7 +177,7 @@ public class MapGenerator : MonoBehaviour
 
     private MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed,
+        float[,] heightMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed,
             noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity,
             center + noiseData.offset, noiseData.normalizeMode);
 
@@ -191,13 +196,33 @@ public class MapGenerator : MonoBehaviour
                     if (terrainData.useFalloff)
                     {
                         // value at the end indicates falloff strength
-                        noiseMap[x, y] = Mathf.Clamp01(noiseMap[x, y] - (falloffMap[x, y] * 1.5f));
+                        heightMap[x, y] = Mathf.Clamp01(heightMap[x, y] - (falloffMap[x, y] * 1.5f));
                     }
                 }
             }
         }
 
-        return new MapData(noiseMap);
+        System.Random random = new System.Random();
+        List<Vector3> treeSpawnPoints = new List<Vector3>();
+        
+        if (spawnObjects)
+        {
+            for (int y = 0; y < mapChunkSize; y++)
+            {
+                for (int x = 0; x < mapChunkSize; x++)
+                {
+                    if (heightMap[x,y] > 0.3f && random.NextDouble() <= density)
+                    {
+                        treeSpawnPoints.Add(new Vector3((x - mapChunkSize/2 + center.x) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(y - mapChunkSize/2 - center.y) * 2));
+                        //treeSpawnPoints.Add(new Vector3((x - mapChunkSize/2) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(y - mapChunkSize/2) * 2));
+                        //treeSpawnPoints.Add(new Vector3((center.x + (x - mapChunkSize/2)) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(center.y + (y - mapChunkSize/2)) * 2));
+                    }
+                }
+            }
+        }
+        
+
+        return new MapData(heightMap, treeSpawnPoints);
     }
 
     private void OnValidate()
@@ -225,9 +250,11 @@ public class MapGenerator : MonoBehaviour
 public struct MapData
 {
     public readonly float[,] heightMap;
+    public readonly List<Vector3> treeSpawnPoints;
 
-    public MapData(float[,] heightMap)
+    public MapData(float[,] heightMap, List<Vector3> treeSpawnPoints)
     {
         this.heightMap = heightMap;
+        this.treeSpawnPoints = treeSpawnPoints;
     }
 }
