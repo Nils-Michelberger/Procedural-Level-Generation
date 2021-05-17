@@ -191,7 +191,6 @@ public class MapGenerator : MonoBehaviour
                     if (terrainData.useFalloff)
                     {
                         // value at the end indicates falloff strength
-                        // TODO: make accessible in editor
                         noiseMap[x, y] = Mathf.Clamp01(noiseMap[x, y] - (falloffMap[x, y] * 1.5f));
                     }
                 }
