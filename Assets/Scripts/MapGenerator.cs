@@ -39,8 +39,14 @@ public class MapGenerator : MonoBehaviour
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
     public bool spawnObjects;
+    
+    public GameObject tree;
     [Range(0,0.1f)]
     public float density;
+    [Range(0,1f)]
+    public float maxSpawnHeight = 0.5f;
+
+    private Transform mesh;
 
     private void Awake()
     {
@@ -84,6 +90,8 @@ public class MapGenerator : MonoBehaviour
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
+        
+        mesh = GameObject.FindWithTag("Mesh").transform;
 
         if (drawMode == DrawMode.NoiseMap)
         {
@@ -93,6 +101,18 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier,
                 terrainData.meshHeightCurve, editorPreviewLevelOfDetail, terrainData.useFlatShading));
+            
+            // clear old trees
+            foreach (Transform child in mesh)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+
+            // spawn new trees
+            foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
+            {
+                Instantiate(tree, treeSpawnPoint, Quaternion.identity, mesh);
+            }
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
@@ -211,11 +231,10 @@ public class MapGenerator : MonoBehaviour
             {
                 for (int x = 0; x < mapChunkSize; x++)
                 {
-                    if (heightMap[x,y] > 0.3f && random.NextDouble() <= density)
+                    // set spawn points for trees
+                    if (heightMap[x,y] > 0.3f && heightMap[x,y] < maxSpawnHeight && random.NextDouble() <= density)
                     {
-                        treeSpawnPoints.Add(new Vector3((x - mapChunkSize/2 + center.x) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(y - mapChunkSize/2 - center.y) * 2));
-                        //treeSpawnPoints.Add(new Vector3((x - mapChunkSize/2) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(y - mapChunkSize/2) * 2));
-                        //treeSpawnPoints.Add(new Vector3((center.x + (x - mapChunkSize/2)) * 2, ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,-(center.y + (y - mapChunkSize/2)) * 2));
+                        treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y));
                     }
                 }
             }
@@ -223,6 +242,13 @@ public class MapGenerator : MonoBehaviour
         
 
         return new MapData(heightMap, treeSpawnPoints);
+    }
+
+    private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y)
+    {
+        return new Vector3((x - mapChunkSize/2 + center.x) * 2,
+            ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,
+            -(y - mapChunkSize/2 - center.y) * 2);
     }
 
     private void OnValidate()

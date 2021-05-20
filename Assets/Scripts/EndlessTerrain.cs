@@ -29,8 +29,6 @@ public class EndlessTerrain : MonoBehaviour
     private Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
     private static List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
-    public GameObject tree;
-
     void Start()
     {
         mapGenerator = FindObjectOfType<MapGenerator>();
@@ -89,7 +87,7 @@ public class EndlessTerrain : MonoBehaviour
                     else
                     {
                         terrainChunkDictionary.Add(viewedChunkCoord,
-                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial, tree));
+                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial, mapGenerator.tree));
                     }
                 }
             }
@@ -219,7 +217,6 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 SetVisible(visible);
                 
-                // Spawn trees with spawnPoints
                 foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
                 {
                     Instantiate(tree, treeSpawnPoint, Quaternion.identity).transform.SetParent(meshObject.transform);
