@@ -87,6 +87,8 @@ public class MapGenerator : MonoBehaviour
 
         mesh = GameObject.FindWithTag("Mesh").transform;
 
+        System.Random random = new System.Random();
+
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
@@ -105,7 +107,8 @@ public class MapGenerator : MonoBehaviour
             // spawn new trees
             foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
             {
-                Instantiate(prefabsData.tree, treeSpawnPoint, Quaternion.identity, mesh.transform);
+                Instantiate(prefabsData.trees[(int) (random.NextDouble() * prefabsData.trees.Length)], treeSpawnPoint,
+                    Quaternion.identity, mesh.transform);
             }
         }
         else if (drawMode == DrawMode.FalloffMap)

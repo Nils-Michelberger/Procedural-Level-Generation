@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class EndlessTerrain : MonoBehaviour
 {
     private const float viewerMoveThresholdForChunkUpdate = 25f;
+
     private const float sqrViewerMoveThresholdForChunkUpdate =
         viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
@@ -62,7 +64,7 @@ public class EndlessTerrain : MonoBehaviour
     void UpdateVisibleChunks()
     {
         HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
-        
+
         for (int i = visibleTerrainChunks.Count - 1; i >= 0; i--)
         {
             alreadyUpdatedChunkCoords.Add(visibleTerrainChunks[i].coord);
@@ -86,8 +88,11 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     else
                     {
+                        System.Random random = new System.Random();
+
                         terrainChunkDictionary.Add(viewedChunkCoord,
-                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial, mapGenerator.prefabsData.tree));
+                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial,
+                                mapGenerator.prefabsData.trees[(int) (random.NextDouble() * mapGenerator.prefabsData.trees.Length)]));
                     }
                 }
             }
@@ -97,7 +102,7 @@ public class EndlessTerrain : MonoBehaviour
     public class TerrainChunk
     {
         public Vector2 coord;
-        
+
         private GameObject meshObject;
         private Vector2 position;
         private Bounds bounds;
@@ -117,7 +122,8 @@ public class EndlessTerrain : MonoBehaviour
 
         private GameObject tree;
 
-        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Material material, GameObject tree)
+        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent,
+            Material material, GameObject tree)
         {
             this.coord = coord;
             this.detailLevels = detailLevels;
@@ -168,7 +174,7 @@ public class EndlessTerrain : MonoBehaviour
             if (mapDataReceived)
             {
                 float viewerDistFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPositon));
-                
+
                 bool wasVisible = IsVisible();
                 bool visible = viewerDistFromNearestEdge <= maxViewDist;
 
@@ -215,8 +221,9 @@ public class EndlessTerrain : MonoBehaviour
                         visibleTerrainChunks.Remove(this);
                     }
                 }
+
                 SetVisible(visible);
-                
+
                 foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
                 {
                     Instantiate(tree, treeSpawnPoint, Quaternion.identity).transform.SetParent(meshObject.transform);
@@ -294,6 +301,7 @@ public class EndlessTerrain : MonoBehaviour
     {
         [Range(0, MeshGenerator.numSupportedLODs - 1)]
         public int lod;
+
         public float visibleDistThreshold;
 
         public float sqrVisibleDistThreshold => visibleDistThreshold * visibleDistThreshold;

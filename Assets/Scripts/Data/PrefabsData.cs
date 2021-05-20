@@ -5,11 +5,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PrefabsData : UpdatableData
 {
-    public GameObject tree;
-    
+    public GameObject[] trees;
     [Range(0,0.1f)]
     public float density;
-    
     [Range(0,1f)]
     public float maxSpawnHeight = 0.5f;
 }

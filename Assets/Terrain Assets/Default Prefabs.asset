@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Default Prefabs
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  tree: {fileID: 136824, guid: 393b236c42954a640b513d46de90ac38, type: 3}
+  trees:
+  - {fileID: 136824, guid: 393b236c42954a640b513d46de90ac38, type: 3}
+  - {fileID: 123896, guid: c63ea781a273235439e583799176c846, type: 3}
+  - {fileID: 191138, guid: 4e2dd32c733005a44b50004d673dc653, type: 3}
   density: 0.0073
   maxSpawnHeight: 0.36
