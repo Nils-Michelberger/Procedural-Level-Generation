@@ -92,7 +92,7 @@ public class EndlessTerrain : MonoBehaviour
 
                         terrainChunkDictionary.Add(viewedChunkCoord,
                             new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial,
-                                mapGenerator.prefabsData.trees[(int) (random.NextDouble() * mapGenerator.prefabsData.trees.Length)]));
+                                mapGenerator.prefabsData.treePrefabs[(int) (random.NextDouble() * mapGenerator.prefabsData.treePrefabs.Length)]));
                     }
                 }
             }

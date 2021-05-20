@@ -107,7 +107,7 @@ public class MapGenerator : MonoBehaviour
             // spawn new trees
             foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
             {
-                Instantiate(prefabsData.trees[(int) (random.NextDouble() * prefabsData.trees.Length)], treeSpawnPoint,
+                Instantiate(prefabsData.treePrefabs[(int) (random.NextDouble() * prefabsData.treePrefabs.Length)], treeSpawnPoint,
                     Quaternion.identity, mesh.transform);
             }
         }
