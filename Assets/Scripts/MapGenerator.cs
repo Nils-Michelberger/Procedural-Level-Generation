@@ -20,10 +20,12 @@ public class MapGenerator : MonoBehaviour
     public TerrainData terrainData;
     public NoiseData noiseData;
     public TextureData textureData;
+    public PrefabsData prefabsData;
     public Material terrainMaterial;
 
     [Range(0, MeshGenerator.numSupportedChunkSizes - 1)]
     public int chunkSizeIndex;
+
     [Range(0, MeshGenerator.numSupportedFlatshadedChunkSizes - 1)]
     public int flatshadedChunkSizeIndex;
 
@@ -37,14 +39,6 @@ public class MapGenerator : MonoBehaviour
 
     private Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
-
-    public bool spawnObjects;
-    
-    public GameObject tree;
-    [Range(0,0.1f)]
-    public float density;
-    [Range(0,1f)]
-    public float maxSpawnHeight = 0.5f;
 
     private Transform mesh;
 
@@ -90,7 +84,7 @@ public class MapGenerator : MonoBehaviour
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
-        
+
         mesh = GameObject.FindWithTag("Mesh").transform;
 
         if (drawMode == DrawMode.NoiseMap)
@@ -101,7 +95,7 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier,
                 terrainData.meshHeightCurve, editorPreviewLevelOfDetail, terrainData.useFlatShading));
-            
+
             // clear old trees
             foreach (Transform child in mesh)
             {
@@ -111,7 +105,7 @@ public class MapGenerator : MonoBehaviour
             // spawn new trees
             foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
             {
-                Instantiate(tree, treeSpawnPoint, Quaternion.identity, mesh);
+                Instantiate(prefabsData.tree, treeSpawnPoint, Quaternion.identity, mesh.transform);
             }
         }
         else if (drawMode == DrawMode.FalloffMap)
@@ -224,31 +218,29 @@ public class MapGenerator : MonoBehaviour
 
         System.Random random = new System.Random();
         List<Vector3> treeSpawnPoints = new List<Vector3>();
-        
-        if (spawnObjects)
+
+        for (int y = 0; y < mapChunkSize; y++)
         {
-            for (int y = 0; y < mapChunkSize; y++)
+            for (int x = 0; x < mapChunkSize; x++)
             {
-                for (int x = 0; x < mapChunkSize; x++)
+                // set spawn points for trees
+                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.maxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.density)
                 {
-                    // set spawn points for trees
-                    if (heightMap[x,y] > 0.3f && heightMap[x,y] < maxSpawnHeight && random.NextDouble() <= density)
-                    {
-                        treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y));
-                    }
+                    treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y));
                 }
             }
         }
-        
+
 
         return new MapData(heightMap, treeSpawnPoints);
     }
 
     private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y)
     {
-        return new Vector3((x - mapChunkSize/2 + center.x) * 2,
-            ((heightMap[x,y] * 2 - 1) * terrainData.meshHeightMultiplier)+6,
-            -(y - mapChunkSize/2 - center.y) * 2);
+        return new Vector3((x - mapChunkSize / 2 + center.x) * 2,
+            ((heightMap[x, y] * 2 - 1) * terrainData.meshHeightMultiplier) + 6,
+            -(y - mapChunkSize / 2 - center.y) * 2);
     }
 
     private void OnValidate()
@@ -269,6 +261,12 @@ public class MapGenerator : MonoBehaviour
         {
             textureData.OnValuesUpdated -= OnTextureValuesUpdated;
             textureData.OnValuesUpdated += OnTextureValuesUpdated;
+        }
+
+        if (prefabsData != null)
+        {
+            prefabsData.OnValuesUpdated -= OnValuesUpdated;
+            prefabsData.OnValuesUpdated += OnValuesUpdated;
         }
     }
 }
