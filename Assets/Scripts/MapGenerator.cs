@@ -101,7 +101,7 @@ public class MapGenerator : MonoBehaviour
 
             // spawn new trees
             SpawnPrefabs(mapData.treeSpawnPoints, prefabsData.treePrefabs);
-            
+
             //spawn new stones
             SpawnPrefabs(mapData.stoneSpawnPoints, prefabsData.stonePrefabs);
         }
@@ -115,11 +115,12 @@ public class MapGenerator : MonoBehaviour
     private void SpawnPrefabs(List<Vector3> spawnPoints, GameObject[] prefabs)
     {
         System.Random random = new System.Random();
-        
+
         foreach (Vector3 spawnPoint in spawnPoints)
         {
             Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
-                Quaternion.identity, mesh.transform);
+                Quaternion.Euler(Quaternion.identity.x, (int) (random.NextDouble() * 360f), Quaternion.identity.z),
+                mesh.transform);
         }
     }
 
@@ -238,7 +239,7 @@ public class MapGenerator : MonoBehaviour
                 {
                     treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y, 5));
                 }
-                
+
                 // set spawn points for stones
                 if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.stoneMaxSpawnHeight &&
                     random.NextDouble() <= prefabsData.stoneDensity)
