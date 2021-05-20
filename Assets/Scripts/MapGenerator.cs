@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -87,8 +84,6 @@ public class MapGenerator : MonoBehaviour
 
         mesh = GameObject.FindWithTag("Mesh").transform;
 
-        System.Random random = new System.Random();
-
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
@@ -98,23 +93,33 @@ public class MapGenerator : MonoBehaviour
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier,
                 terrainData.meshHeightCurve, editorPreviewLevelOfDetail, terrainData.useFlatShading));
 
-            // clear old trees
+            // clear all prefabs
             foreach (Transform child in mesh)
             {
                 DestroyImmediate(child.gameObject);
             }
 
             // spawn new trees
-            foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
-            {
-                Instantiate(prefabsData.treePrefabs[(int) (random.NextDouble() * prefabsData.treePrefabs.Length)], treeSpawnPoint,
-                    Quaternion.identity, mesh.transform);
-            }
+            SpawnPrefabs(mapData.treeSpawnPoints, prefabsData.treePrefabs);
+            
+            //spawn new stones
+            SpawnPrefabs(mapData.stoneSpawnPoints, prefabsData.stonePrefabs);
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
             display.DrawTexture(
                 TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(mapChunkSize)));
+        }
+    }
+
+    private void SpawnPrefabs(List<Vector3> spawnPoints, GameObject[] prefabs)
+    {
+        System.Random random = new System.Random();
+        
+        foreach (Vector3 spawnPoint in spawnPoints)
+        {
+            Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
+                Quaternion.identity, mesh.transform);
         }
     }
 
@@ -221,28 +226,36 @@ public class MapGenerator : MonoBehaviour
 
         System.Random random = new System.Random();
         List<Vector3> treeSpawnPoints = new List<Vector3>();
+        List<Vector3> stoneSpawnPoints = new List<Vector3>();
 
         for (int y = 0; y < mapChunkSize; y++)
         {
             for (int x = 0; x < mapChunkSize; x++)
             {
                 // set spawn points for trees
-                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.maxSpawnHeight &&
-                    random.NextDouble() <= prefabsData.density)
+                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.treeMaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.treeDensity)
                 {
-                    treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y));
+                    treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y, 5));
+                }
+                
+                // set spawn points for stones
+                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.stoneMaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.stoneDensity)
+                {
+                    stoneSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y, 6));
                 }
             }
         }
 
 
-        return new MapData(heightMap, treeSpawnPoints);
+        return new MapData(heightMap, treeSpawnPoints, stoneSpawnPoints);
     }
 
-    private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y)
+    private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y, int spawnHeightMultiplier)
     {
         return new Vector3((x - mapChunkSize / 2 + center.x) * 2,
-            ((heightMap[x, y] * 2 - 1) * terrainData.meshHeightMultiplier) + 6,
+            ((heightMap[x, y] * 2 - 1) * terrainData.meshHeightMultiplier) + spawnHeightMultiplier,
             -(y - mapChunkSize / 2 - center.y) * 2);
     }
 
@@ -278,10 +291,12 @@ public struct MapData
 {
     public readonly float[,] heightMap;
     public readonly List<Vector3> treeSpawnPoints;
+    public readonly List<Vector3> stoneSpawnPoints;
 
-    public MapData(float[,] heightMap, List<Vector3> treeSpawnPoints)
+    public MapData(float[,] heightMap, List<Vector3> treeSpawnPoints, List<Vector3> stoneSpawnPoints)
     {
         this.heightMap = heightMap;
         this.treeSpawnPoints = treeSpawnPoints;
+        this.stoneSpawnPoints = stoneSpawnPoints;
     }
 }

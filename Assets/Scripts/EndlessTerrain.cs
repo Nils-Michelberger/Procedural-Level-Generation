@@ -88,11 +88,9 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     else
                     {
-                        System.Random random = new System.Random();
-
                         terrainChunkDictionary.Add(viewedChunkCoord,
-                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform, mapMaterial,
-                                mapGenerator.prefabsData.treePrefabs[(int) (random.NextDouble() * mapGenerator.prefabsData.treePrefabs.Length)]));
+                            new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform,
+                                mapMaterial, mapGenerator.prefabsData.treePrefabs, mapGenerator.prefabsData.stonePrefabs));
                     }
                 }
             }
@@ -120,15 +118,19 @@ public class EndlessTerrain : MonoBehaviour
         private int previousLODIndex = -1;
         private bool hasSetCollider;
 
-        private GameObject tree;
+        private GameObject[] treePrefabs;
+        private GameObject[] stonePrefabs;
+        
+        private bool prefabsSpawned;
 
         public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent,
-            Material material, GameObject tree)
+            Material material, GameObject[] treePrefabs, GameObject[] stonePrefabs)
         {
             this.coord = coord;
             this.detailLevels = detailLevels;
             this.colliderLODIndex = colliderLODIndex;
-            this.tree = tree;
+            this.treePrefabs = treePrefabs;
+            this.stonePrefabs = stonePrefabs;
 
             position = coord * size;
             bounds = new Bounds(position, Vector2.one * size);
@@ -224,10 +226,27 @@ public class EndlessTerrain : MonoBehaviour
 
                 SetVisible(visible);
 
-                foreach (Vector3 treeSpawnPoint in mapData.treeSpawnPoints)
+                if (!prefabsSpawned)
                 {
-                    Instantiate(tree, treeSpawnPoint, Quaternion.identity).transform.SetParent(meshObject.transform);
+                    // spawn trees
+                    SpawnPrefabs(mapData.treeSpawnPoints, treePrefabs);
+                
+                    // spawn stones
+                    SpawnPrefabs(mapData.stoneSpawnPoints, stonePrefabs);
+
+                    prefabsSpawned = true;
                 }
+            }
+        }
+
+        private void SpawnPrefabs(List<Vector3> spawnPoints, GameObject[] prefabs)
+        {
+            System.Random random = new System.Random();
+            
+            foreach (Vector3 spawnPoint in spawnPoints)
+            {
+                Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
+                    Quaternion.identity).transform.SetParent(meshObject.transform);
             }
         }
 
