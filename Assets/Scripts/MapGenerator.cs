@@ -93,7 +93,7 @@ public class MapGenerator : MonoBehaviour
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier,
                 terrainData.meshHeightCurve, editorPreviewLevelOfDetail, terrainData.useFlatShading));
 
-            // clear all 
+            // clear all prefabs
             for (int i = mesh.childCount; i > 0; i--)
             {
                 DestroyImmediate(mesh.transform.GetChild(0).gameObject);
