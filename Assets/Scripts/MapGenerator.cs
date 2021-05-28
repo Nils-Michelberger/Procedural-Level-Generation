@@ -235,10 +235,10 @@ public class MapGenerator : MonoBehaviour
             for (int x = 0; x < mapChunkSize; x++)
             {
                 // set spawn points for trees
-                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.treeMaxSpawnHeight &&
+                if (heightMap[x, y] >= prefabsData.treeMinSpawnHeight && heightMap[x, y] <= prefabsData.treeMaxSpawnHeight &&
                     random.NextDouble() <= prefabsData.treeDensity)
                 {
-                    Vector3 treeSpawnPoint = GetSpawnPoint(center, heightMap, x, y, 5);
+                    Vector3 treeSpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.treeSpawnHeightMultiplier);
 
                     if (!prefabsData.collisionFreeSpawning || CheckCollision(spawnPoints, treeSpawnPoint))
                     {
@@ -248,10 +248,10 @@ public class MapGenerator : MonoBehaviour
                 }
 
                 // set spawn points for stones
-                if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.stoneMaxSpawnHeight &&
+                if (heightMap[x, y] >= prefabsData.stoneMinSpawnHeight && heightMap[x, y] <= prefabsData.stoneMaxSpawnHeight &&
                     random.NextDouble() <= prefabsData.stoneDensity)
                 {
-                    Vector3 stoneSpawnPoint = GetSpawnPoint(center, heightMap, x, y, 6);
+                    Vector3 stoneSpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.stoneSpawnHeightMultiplier);
 
                     if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, stoneSpawnPoint))
                     {
@@ -282,11 +282,12 @@ public class MapGenerator : MonoBehaviour
         return setSpawnPoint;
     }
 
-    private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y, int spawnHeightMultiplier)
+    private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y, float spawnHeightMultiplier)
     {
+        AnimationCurve heightCurveCopy = new AnimationCurve(terrainData.meshHeightCurve.keys);
+        float height = heightCurveCopy.Evaluate(heightMap[x, y]) * terrainData.meshHeightMultiplier;
         return new Vector3((x - mapChunkSize / 2 + center.x) * 2,
-            ((heightMap[x, y] * 2 - 1) * terrainData.meshHeightMultiplier) + spawnHeightMultiplier,
-            -(y - mapChunkSize / 2 - center.y) * 2);
+            height * spawnHeightMultiplier, -(y - mapChunkSize / 2 - center.y) * 2);
     }
 
     private void OnValidate()
