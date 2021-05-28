@@ -16,7 +16,7 @@ MonoBehaviour:
   normalizeMode: 0
   noiseScale: 43.89
   octaves: 4
-  persistance: 0.543
-  lacunarity: 1.99
+  persistance: 0.573
+  lacunarity: 1.8
   seed: 0
   offset: {x: 402.08, y: 0}

@@ -22,7 +22,7 @@ MonoBehaviour:
   treeDensity: 0.0386
   treeMinSpawnHeight: 0.3
   treeMaxSpawnHeight: 1.35
-  treeSpawnHeightMultiplier: 1.5
+  treeSpawnHeightMultiplier: 1.7
   stonePrefabs:
   - {fileID: 100000, guid: aff966e5025eb394f9474186cecbb30d, type: 3}
   - {fileID: 100000, guid: 460c985abbd459b40a6554e606202d00, type: 3}

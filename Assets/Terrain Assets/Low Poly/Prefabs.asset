@@ -14,19 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   collisionFreeSpawning: 1
-  minSpawnDistance: 11
+  minSpawnDistance: 15
   treePrefabs:
   - {fileID: 2222111361404534124, guid: 88f2fd29f58b9734683512546acec310, type: 3}
   - {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
   - {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
-  treeDensity: 0.0378
-  treeMinSpawnHeight: 0.3
+  treeDensity: 0.0079
+  treeMinSpawnHeight: 0
   treeMaxSpawnHeight: 1.5
+  treeSpawnHeightMultiplier: 1.5
   stonePrefabs:
   - {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
   - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
   - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
   - {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}
-  stoneDensity: 0.0323
-  stoneMinSpawnHeight: 0.3
+  stoneDensity: 0.0061
+  stoneMinSpawnHeight: 0
   stoneMaxSpawnHeight: 1.5
+  stoneSpawnHeightMultiplier: 1.5
