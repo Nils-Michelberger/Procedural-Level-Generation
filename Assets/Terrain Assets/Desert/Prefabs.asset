@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c093ba6590723534c8babee31a6dfef1, type: 3}
+  m_Name: Prefabs
+  m_EditorClassIdentifier: 
+  autoUpdate: 1
+  collisionFreeSpawning: 1
+  minSpawnDistance: 27.1
+  treePrefabs:
+  - {fileID: 100000, guid: 4ca0318c4a50b3849a6d1ff3c69009da, type: 3}
+  - {fileID: 100000, guid: 924b0146480cdf94491776d3411b1dda, type: 3}
+  - {fileID: 100000, guid: 13db1d4df6986d047a29eb9a35fb321e, type: 3}
+  treeDensity: 0.0386
+  treeMinSpawnHeight: 0.3
+  treeMaxSpawnHeight: 1.35
+  treeSpawnHeightMultiplier: 1.5
+  stonePrefabs:
+  - {fileID: 100000, guid: aff966e5025eb394f9474186cecbb30d, type: 3}
+  - {fileID: 100000, guid: 460c985abbd459b40a6554e606202d00, type: 3}
+  - {fileID: 100000, guid: 8c594ad48c4201c4589acbe2ce2cc8c0, type: 3}
+  stoneDensity: 0.1
+  stoneMinSpawnHeight: 0.3
+  stoneMaxSpawnHeight: 1.5
+  stoneSpawnHeightMultiplier: 1.5
