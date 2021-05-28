@@ -17,8 +17,8 @@ MonoBehaviour:
   - {fileID: 136824, guid: 393b236c42954a640b513d46de90ac38, type: 3}
   - {fileID: 123896, guid: c63ea781a273235439e583799176c846, type: 3}
   - {fileID: 191138, guid: 4e2dd32c733005a44b50004d673dc653, type: 3}
-  treeDensity: 0.02
-  treeMaxSpawnHeight: 0.438
+  treeDensity: 0.0024
+  treeMaxSpawnHeight: 0.079
   stonePrefabs:
   - {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
   - {fileID: 1000010869019282, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
@@ -26,5 +26,5 @@ MonoBehaviour:
   - {fileID: 1000011696945378, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
   - {fileID: 1000013569322780, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
   - {fileID: 1000011143488790, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
-  stoneDensity: 0.05
-  stoneMaxSpawnHeight: 0.5
+  stoneDensity: 0.0006
+  stoneMaxSpawnHeight: 0.097
