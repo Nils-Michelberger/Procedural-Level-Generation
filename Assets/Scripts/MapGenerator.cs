@@ -228,6 +228,7 @@ public class MapGenerator : MonoBehaviour
         System.Random random = new System.Random();
         List<Vector3> treeSpawnPoints = new List<Vector3>();
         List<Vector3> stoneSpawnPoints = new List<Vector3>();
+        List<Vector3> spawnPoints = new List<Vector3>();
 
         for (int y = 0; y < mapChunkSize; y++)
         {
@@ -237,20 +238,48 @@ public class MapGenerator : MonoBehaviour
                 if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.treeMaxSpawnHeight &&
                     random.NextDouble() <= prefabsData.treeDensity)
                 {
-                    treeSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y, 5));
+                    Vector3 treeSpawnPoint = GetSpawnPoint(center, heightMap, x, y, 5);
+
+                    if (!prefabsData.collisionFreeSpawning || CheckCollision(spawnPoints, treeSpawnPoint))
+                    {
+                        treeSpawnPoints.Add(treeSpawnPoint);
+                        spawnPoints.Add(treeSpawnPoint);
+                    }
                 }
 
                 // set spawn points for stones
                 if (heightMap[x, y] > 0.3f && heightMap[x, y] < prefabsData.stoneMaxSpawnHeight &&
                     random.NextDouble() <= prefabsData.stoneDensity)
                 {
-                    stoneSpawnPoints.Add(GetSpawnPoint(center, heightMap, x, y, 6));
+                    Vector3 stoneSpawnPoint = GetSpawnPoint(center, heightMap, x, y, 6);
+
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, stoneSpawnPoint))
+                    {
+                        stoneSpawnPoints.Add(stoneSpawnPoint);
+                        spawnPoints.Add(stoneSpawnPoint);
+                    }
                 }
             }
         }
 
 
         return new MapData(heightMap, treeSpawnPoints, stoneSpawnPoints);
+    }
+
+    private bool CheckCollision(List<Vector3> spawnPoints, Vector3 treeSpawnPoint)
+    {
+        bool setSpawnPoint = true;
+        
+        foreach (Vector3 spawnPoint in spawnPoints)
+        {
+            if (Vector3.Distance(treeSpawnPoint, spawnPoint) < prefabsData.minSpawnDistance)
+            {
+                setSpawnPoint = false;
+                break;
+            }
+        }
+
+        return setSpawnPoint;
     }
 
     private Vector3 GetSpawnPoint(Vector2 center, float[,] heightMap, int x, int y, int spawnHeightMultiplier)

@@ -5,18 +5,23 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PrefabsData : UpdatableData
 {
+    [Header("General")]
+    public bool collisionFreeSpawning;
+    [Range(0, 50f)]
+    public float minSpawnDistance;
+    
     [Header("Trees")]
     public GameObject[] treePrefabs;
     [Range(0,0.1f)]
     public float treeDensity = 0.01f;
-    [Range(0,1f)]
+    [Range(0,1.5f)]
     public float treeMaxSpawnHeight = 0.5f;
     
     [Header("Stones")]
     public GameObject[] stonePrefabs;
     [Range(0,0.1f)]
     public float stoneDensity = 0.01f;
-    [Range(0,1f)]
+    [Range(0,1.5f)]
     public float stoneMaxSpawnHeight = 0.5f;
     
 }
