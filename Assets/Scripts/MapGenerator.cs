@@ -12,7 +12,17 @@ public class MapGenerator : MonoBehaviour
         FalloffMap
     };
 
+    public enum Biome
+    {
+        Default,
+        LowPoly,
+        Desert,
+        Custom
+    }
+
     public DrawMode drawMode;
+
+    public Biome biome;
 
     public TerrainData terrainData;
     public NoiseData noiseData;
@@ -292,6 +302,28 @@ public class MapGenerator : MonoBehaviour
 
     private void OnValidate()
     {
+        switch (biome)
+        {
+            case Biome.Default:
+                terrainData = Resources.Load<TerrainData>("Terrain Assets/Default/Terrain");
+                noiseData = Resources.Load<NoiseData>("Terrain Assets/Default/Noise");
+                textureData = Resources.Load<TextureData>("Terrain Assets/Default/Texture");
+                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Default/Prefabs");
+                break;
+            case Biome.LowPoly:
+                terrainData = Resources.Load<TerrainData>("Terrain Assets/Low Poly/Terrain");
+                noiseData = Resources.Load<NoiseData>("Terrain Assets/Low Poly/Noise");
+                textureData = Resources.Load<TextureData>("Terrain Assets/Low Poly/Texture");
+                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Low Poly/Prefabs");
+                break;
+            case Biome.Desert:
+                terrainData = Resources.Load<TerrainData>("Terrain Assets/Desert/Terrain");
+                noiseData = Resources.Load<NoiseData>("Terrain Assets/Desert/Noise");
+                textureData = Resources.Load<TextureData>("Terrain Assets/Desert/Texture");
+                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Desert/Prefabs");
+                break;
+        }
+
         if (terrainData != null)
         {
             terrainData.OnValuesUpdated -= OnValuesUpdated;
