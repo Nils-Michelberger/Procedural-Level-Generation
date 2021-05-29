@@ -323,6 +323,8 @@ public class MapGenerator : MonoBehaviour
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Desert/Prefabs");
                 break;
         }
+        
+        OnTextureValuesUpdated();
 
         if (terrainData != null)
         {
