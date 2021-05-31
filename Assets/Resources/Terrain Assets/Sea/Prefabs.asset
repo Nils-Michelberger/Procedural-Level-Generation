@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   collisionFreeSpawning: 1
-  minSpawnDistance: 15
-  prefab1Types: []
-  prefab1Density: 0.0045
+  minSpawnDistance: 200
+  prefab1Types:
+  - {fileID: 1205614443198496, guid: f855683b127eede4c9d170be2672ae27, type: 3}
+  prefab1Density: 0.0002
   prefab1MinSpawnHeight: 0
-  prefab1MaxSpawnHeight: 1
-  prefab1SpawnHeightMultiplier: 1.7
+  prefab1MaxSpawnHeight: 1.5
+  prefab1SpawnHeightMultiplier: 4
   prefab2Types: []
   prefab2Density: 0.005
   prefab2MinSpawnHeight: 0
