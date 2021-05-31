@@ -14,34 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   collisionFreeSpawning: 1
-  minSpawnDistance: 15
+  minSpawnDistance: 6
   prefab1Types:
+  - {fileID: 2222111361404534124, guid: 88f2fd29f58b9734683512546acec310, type: 3}
   - {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
   - {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
-  prefab1Density: 0.01
-  prefab1MinSpawnHeight: 0.3
-  prefab1MaxSpawnHeight: 0.5
+  prefab1Density: 0.003
+  prefab1MinSpawnHeight: 0
+  prefab1MaxSpawnHeight: 1.5
   prefab1SpawnHeightMultiplier: 1.5
   prefab2Types:
   - {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
   - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
   - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
   - {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}
-  prefab2Density: 0.01
-  prefab2MinSpawnHeight: 0.3
-  prefab2MaxSpawnHeight: 0.5
-  prefab2SpawnHeightMultiplier: 1.5
+  prefab2Density: 0.003
+  prefab2MinSpawnHeight: 0
+  prefab2MaxSpawnHeight: 1.5
+  prefab2SpawnHeightMultiplier: 1.7
   prefab3Types:
   - {fileID: 4385080170328260021, guid: ff62b58c5a9ea164fa8ddf8038e10cd1, type: 3}
   - {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
-  prefab3Density: 0.1
+  - {fileID: 8903058273634794869, guid: f1fc5bb90ac285e4486771552d63bcb8, type: 3}
+  - {fileID: 3356751432538110193, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
+  prefab3Density: 0.02
   prefab3MinSpawnHeight: 0
-  prefab3MaxSpawnHeight: 0.2
+  prefab3MaxSpawnHeight: 0.5
   prefab3SpawnHeightMultiplier: 1.3
   prefab4Types:
   - {fileID: 108507113624723981, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
   - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
-  prefab4Density: 0.02
-  prefab4MinSpawnHeight: 0.05
-  prefab4MaxSpawnHeight: 0.21
+  prefab4Density: 0.01
+  prefab4MinSpawnHeight: 0
+  prefab4MaxSpawnHeight: 0.6
   prefab4SpawnHeightMultiplier: 1.6
