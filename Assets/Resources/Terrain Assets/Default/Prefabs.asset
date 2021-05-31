@@ -13,24 +13,35 @@ MonoBehaviour:
   m_Name: Prefabs
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  collisionFreeSpawning: 1
-  minSpawnDistance: 19.5
-  treePrefabs:
+  collisionFreeSpawning: 0
+  minSpawnDistance: 17.8
+  prefab1Types:
   - {fileID: 136824, guid: 393b236c42954a640b513d46de90ac38, type: 3}
   - {fileID: 123896, guid: c63ea781a273235439e583799176c846, type: 3}
   - {fileID: 191138, guid: 4e2dd32c733005a44b50004d673dc653, type: 3}
-  treeDensity: 0.0134
-  treeMinSpawnHeight: 0.293
-  treeMaxSpawnHeight: 0.475
-  treeSpawnHeightMultiplier: 1.5
-  stonePrefabs:
+  prefab1Density: 0.0066
+  prefab1MinSpawnHeight: 0.3
+  prefab1MaxSpawnHeight: 0.629
+  prefab1SpawnHeightMultiplier: 1.5
+  prefab2Types:
   - {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
   - {fileID: 1000010869019282, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
   - {fileID: 1000011949594382, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   - {fileID: 1000011696945378, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
   - {fileID: 1000013569322780, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
   - {fileID: 1000011143488790, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
-  stoneDensity: 0.0079
-  stoneMinSpawnHeight: 0.3
-  stoneMaxSpawnHeight: 1.5
-  stoneSpawnHeightMultiplier: 2
+  prefab2Density: 0.0054
+  prefab2MinSpawnHeight: 0.3
+  prefab2MaxSpawnHeight: 1.5
+  prefab2SpawnHeightMultiplier: 2
+  prefab3Types:
+  - {fileID: 8903058273634794869, guid: f1fc5bb90ac285e4486771552d63bcb8, type: 3}
+  prefab3Density: 0.636
+  prefab3MinSpawnHeight: 0.618
+  prefab3MaxSpawnHeight: 0.923
+  prefab3SpawnHeightMultiplier: 1.5
+  prefab4Types: []
+  prefab4Density: 0.01
+  prefab4MinSpawnHeight: 0.3
+  prefab4MaxSpawnHeight: 0.5
+  prefab4SpawnHeightMultiplier: 1.5
