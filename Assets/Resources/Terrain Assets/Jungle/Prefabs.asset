@@ -14,28 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   collisionFreeSpawning: 1
-  minSpawnDistance: 27.1
+  minSpawnDistance: 8
   prefab1Types:
-  - {fileID: 100000, guid: 4ca0318c4a50b3849a6d1ff3c69009da, type: 3}
-  - {fileID: 100000, guid: 924b0146480cdf94491776d3411b1dda, type: 3}
-  - {fileID: 100000, guid: 13db1d4df6986d047a29eb9a35fb321e, type: 3}
-  prefab1Density: 0.01
+  - {fileID: 131444, guid: 5e617e90ac28ce7488be6a63235b1f32, type: 3}
+  - {fileID: 118788, guid: 8d67c8074b567ec459905d65232f7154, type: 3}
+  - {fileID: 161618, guid: 03566e50eb2d319468a8720030b6bcf6, type: 3}
+  - {fileID: 137888, guid: ecc2762d91d3584429565bde5fbede9e, type: 3}
+  prefab1Density: 0.2
   prefab1MinSpawnHeight: 0.3
-  prefab1MaxSpawnHeight: 0.5
+  prefab1MaxSpawnHeight: 1.5
   prefab1SpawnHeightMultiplier: 1.7
   prefab2Types:
-  - {fileID: 100000, guid: aff966e5025eb394f9474186cecbb30d, type: 3}
-  - {fileID: 100000, guid: 460c985abbd459b40a6554e606202d00, type: 3}
-  - {fileID: 100000, guid: 8c594ad48c4201c4589acbe2ce2cc8c0, type: 3}
-  prefab2Density: 0.01
-  prefab2MinSpawnHeight: 0.3
-  prefab2MaxSpawnHeight: 0.5
-  prefab2SpawnHeightMultiplier: 1.4
+  - {fileID: 1698920624316846, guid: 6cb9eb6b0730a724eb39c4e25c66dbcd, type: 3}
+  - {fileID: 1899472320445534, guid: 9b97a53ec541e8d40b0be03edabcb1f9, type: 3}
+  prefab2Density: 0.2
+  prefab2MinSpawnHeight: 0
+  prefab2MaxSpawnHeight: 0
+  prefab2SpawnHeightMultiplier: 0
   prefab3Types:
-  - {fileID: 100000, guid: 3ccd290dacb28bc409d85b2f564c9796, type: 3}
-  prefab3Density: 0.0085
-  prefab3MinSpawnHeight: 0.05
-  prefab3MaxSpawnHeight: 0.4
+  - {fileID: 1298481390831956, guid: 73599c0a66cd0234a85c595a8f8a1738, type: 3}
+  - {fileID: 1550230207191338, guid: a7901be2baf837243a84e046e16ad917, type: 3}
+  prefab3Density: 0.2
+  prefab3MinSpawnHeight: 0.25
+  prefab3MaxSpawnHeight: 0.9
   prefab3SpawnHeightMultiplier: 1.7
   prefab4Types: []
   prefab4Density: 0.01
