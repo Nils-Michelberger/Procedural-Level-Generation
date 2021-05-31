@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8202e5fb84f9a14abda92a533f79387, type: 3}
-  m_Name: Terrain 1
+  m_Name: Terrain
   m_EditorClassIdentifier: 
   autoUpdate: 1
   uniformScale: 2

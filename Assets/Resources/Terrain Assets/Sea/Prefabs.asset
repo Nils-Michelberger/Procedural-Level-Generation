@@ -10,29 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c093ba6590723534c8babee31a6dfef1, type: 3}
-  m_Name: Prefabs 1
+  m_Name: Prefabs
   m_EditorClassIdentifier: 
   autoUpdate: 1
   collisionFreeSpawning: 1
   minSpawnDistance: 15
-  prefab1Types:
-  - {fileID: 100000, guid: 4ca0318c4a50b3849a6d1ff3c69009da, type: 3}
-  - {fileID: 100000, guid: 924b0146480cdf94491776d3411b1dda, type: 3}
-  - {fileID: 100000, guid: 13db1d4df6986d047a29eb9a35fb321e, type: 3}
+  prefab1Types: []
   prefab1Density: 0.0045
   prefab1MinSpawnHeight: 0
   prefab1MaxSpawnHeight: 1
   prefab1SpawnHeightMultiplier: 1.7
-  prefab2Types:
-  - {fileID: 100000, guid: aff966e5025eb394f9474186cecbb30d, type: 3}
-  - {fileID: 100000, guid: 460c985abbd459b40a6554e606202d00, type: 3}
-  - {fileID: 100000, guid: 8c594ad48c4201c4589acbe2ce2cc8c0, type: 3}
+  prefab2Types: []
   prefab2Density: 0.005
   prefab2MinSpawnHeight: 0
   prefab2MaxSpawnHeight: 1.5
   prefab2SpawnHeightMultiplier: 1.3
-  prefab3Types:
-  - {fileID: 100000, guid: 3ccd290dacb28bc409d85b2f564c9796, type: 3}
+  prefab3Types: []
   prefab3Density: 0.0025
   prefab3MinSpawnHeight: 0
   prefab3MaxSpawnHeight: 0.4

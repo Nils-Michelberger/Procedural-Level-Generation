@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using Object = System.Object;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class MapGenerator : MonoBehaviour
     public TextureData textureData;
     public PrefabsData prefabsData;
     public Material terrainMaterial;
+    public Material seaMaterial;
 
     [Range(0, MeshGenerator.numSupportedChunkSizes - 1)]
     public int chunkSizeIndex;
@@ -48,7 +50,7 @@ public class MapGenerator : MonoBehaviour
     private Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-    private Transform mesh;
+    public Transform mesh;
 
     private void Awake()
     {
@@ -93,8 +95,6 @@ public class MapGenerator : MonoBehaviour
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
-        mesh = GameObject.FindWithTag("Mesh").transform;
-
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
@@ -131,13 +131,16 @@ public class MapGenerator : MonoBehaviour
 
     private void SpawnPrefabs(List<Vector3> spawnPoints, GameObject[] prefabs)
     {
-        System.Random random = new System.Random();
-
-        foreach (Vector3 spawnPoint in spawnPoints)
+        if (prefabs.Length != 0)
         {
-            Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
-                Quaternion.Euler(Quaternion.identity.x, (int) (random.NextDouble() * 360f), Quaternion.identity.z),
-                mesh.transform);
+            System.Random random = new System.Random();
+
+            foreach (Vector3 spawnPoint in spawnPoints)
+            {
+                Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
+                    Quaternion.Euler(Quaternion.identity.x, (int) (random.NextDouble() * 360f), Quaternion.identity.z),
+                    mesh.transform);
+            }
         }
     }
 
@@ -344,24 +347,28 @@ public class MapGenerator : MonoBehaviour
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Default/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Default/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Default/Prefabs");
+                mesh.GetComponent<MeshRenderer>().material = terrainMaterial;
                 break;
             case Biome.LowPoly:
                 terrainData = Resources.Load<TerrainData>("Terrain Assets/Low Poly/Terrain");
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Low Poly/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Low Poly/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Low Poly/Prefabs");
+                mesh.GetComponent<MeshRenderer>().material = terrainMaterial;
                 break;
             case Biome.Desert:
                 terrainData = Resources.Load<TerrainData>("Terrain Assets/Desert/Terrain");
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Desert/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Desert/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Desert/Prefabs");
+                mesh.GetComponent<MeshRenderer>().material = terrainMaterial;
                 break;
             case Biome.Sea:
                 terrainData = Resources.Load<TerrainData>("Terrain Assets/Sea/Terrain");
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Sea/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Sea/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Sea/Prefabs");
+                mesh.GetComponent<MeshRenderer>().material = seaMaterial;
                 break;
         }
         

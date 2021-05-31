@@ -17,7 +17,7 @@ public class EndlessTerrain : MonoBehaviour
     public static float maxViewDist;
 
     public Transform viewer;
-    public Material mapMaterial;
+    private Material mapMaterial;
 
     public static Vector2 viewerPositon;
     private Vector2 viewerPositionOld;
@@ -34,6 +34,13 @@ public class EndlessTerrain : MonoBehaviour
     void Start()
     {
         mapGenerator = FindObjectOfType<MapGenerator>();
+
+        mapMaterial = mapGenerator.terrainMaterial;
+
+        if (mapGenerator.biome.Equals(MapGenerator.Biome.Sea))
+        {
+            mapMaterial = mapGenerator.seaMaterial;
+        }
 
         maxViewDist = detailLevels[detailLevels.Length - 1].visibleDistThreshold;
         chunkSize = mapGenerator.mapChunkSize - 1; // 241 - 1 = 240
