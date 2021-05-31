@@ -299,7 +299,7 @@ public class MapGenerator : MonoBehaviour
 
                     if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab4SpawnPoint))
                     {
-                        prefab2SpawnPoints.Add(prefab4SpawnPoint);
+                        prefab4SpawnPoints.Add(prefab4SpawnPoint);
                         spawnPoints.Add(prefab4SpawnPoint);
                     }
                 }
