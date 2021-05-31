@@ -18,6 +18,7 @@ public class MapGenerator : MonoBehaviour
         LowPoly,
         Desert,
         Sea,
+        Jungle,
         Custom
     }
 
@@ -356,6 +357,12 @@ public class MapGenerator : MonoBehaviour
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Desert/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Desert/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Desert/Prefabs");
+                break;
+            case Biome.Jungle:
+                terrainData = Resources.Load<TerrainData>("Terrain Assets/Jungle/Terrain");
+                noiseData = Resources.Load<NoiseData>("Terrain Assets/Jungle/Noise");
+                textureData = Resources.Load<TextureData>("Terrain Assets/Jungle/Texture");
+                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Jungle/Prefabs");
                 break;
             case Biome.Sea:
                 terrainData = Resources.Load<TerrainData>("Terrain Assets/Sea/Terrain");
