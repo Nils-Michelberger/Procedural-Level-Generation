@@ -7,7 +7,7 @@ public class PrefabsData : UpdatableData
 {
     [Header("General")]
     public bool collisionFreeSpawning;
-    [Range(0, 50f)]
+    [Range(0, 200f)]
     public float minSpawnDistance;
     
     [Header("Prefab1")]
