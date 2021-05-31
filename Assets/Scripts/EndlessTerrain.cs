@@ -90,8 +90,9 @@ public class EndlessTerrain : MonoBehaviour
                     {
                         terrainChunkDictionary.Add(viewedChunkCoord,
                             new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, colliderLODIndex, transform,
-                                mapMaterial, mapGenerator.prefabsData.treePrefabs,
-                                mapGenerator.prefabsData.stonePrefabs));
+                                mapMaterial, mapGenerator.prefabsData.prefab1Types,
+                                mapGenerator.prefabsData.prefab2Types, mapGenerator.prefabsData.prefab3Types,
+                                mapGenerator.prefabsData.prefab4Types));
                     }
                 }
             }
@@ -119,19 +120,24 @@ public class EndlessTerrain : MonoBehaviour
         private int previousLODIndex = -1;
         private bool hasSetCollider;
 
-        private GameObject[] treePrefabs;
-        private GameObject[] stonePrefabs;
+        private GameObject[] prefabs1;
+        private GameObject[] prefabs2;
+        private GameObject[] prefabs3;
+        private GameObject[] prefabs4;
 
         private bool prefabsSpawned;
 
         public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent,
-            Material material, GameObject[] treePrefabs, GameObject[] stonePrefabs)
+            Material material, GameObject[] prefabs1, GameObject[] prefabs2, GameObject[] prefabs3,
+            GameObject[] prefabs4)
         {
             this.coord = coord;
             this.detailLevels = detailLevels;
             this.colliderLODIndex = colliderLODIndex;
-            this.treePrefabs = treePrefabs;
-            this.stonePrefabs = stonePrefabs;
+            this.prefabs1 = prefabs1;
+            this.prefabs2 = prefabs2;
+            this.prefabs3 = prefabs3;
+            this.prefabs4 = prefabs4;
 
             position = coord * size;
             bounds = new Bounds(position, Vector2.one * size);
@@ -229,11 +235,13 @@ public class EndlessTerrain : MonoBehaviour
 
                 if (!prefabsSpawned)
                 {
-                    // spawn trees
-                    SpawnPrefabs(mapData.treeSpawnPoints, treePrefabs);
+                    SpawnPrefabs(mapData.prefab1SpawnPoints, prefabs1);
 
-                    // spawn stones
-                    SpawnPrefabs(mapData.stoneSpawnPoints, stonePrefabs);
+                    SpawnPrefabs(mapData.prefab2SpawnPoints, prefabs2);
+
+                    SpawnPrefabs(mapData.prefab3SpawnPoints, prefabs3);
+
+                    SpawnPrefabs(mapData.prefab4SpawnPoints, prefabs4);
 
                     prefabsSpawned = true;
                 }
@@ -242,14 +250,17 @@ public class EndlessTerrain : MonoBehaviour
 
         private void SpawnPrefabs(List<Vector3> spawnPoints, GameObject[] prefabs)
         {
-            System.Random random = new System.Random();
-
-            foreach (Vector3 spawnPoint in spawnPoints)
+            if (prefabs.Length != 0)
             {
-                Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
-                        Quaternion.Euler(Quaternion.identity.x, (int) (random.NextDouble() * 360f),
-                            Quaternion.identity.z))
-                    .transform.SetParent(meshObject.transform);
+                System.Random random = new System.Random();
+
+                foreach (Vector3 spawnPoint in spawnPoints)
+                {
+                    Instantiate(prefabs[(int) (random.NextDouble() * prefabs.Length)], spawnPoint,
+                            Quaternion.Euler(Quaternion.identity.x, (int) (random.NextDouble() * 360f),
+                                Quaternion.identity.z))
+                        .transform.SetParent(meshObject.transform);
+                } 
             }
         }
 

@@ -109,11 +109,17 @@ public class MapGenerator : MonoBehaviour
                 DestroyImmediate(mesh.transform.GetChild(0).gameObject);
             }
 
-            // spawn new trees
-            SpawnPrefabs(mapData.treeSpawnPoints, prefabsData.treePrefabs);
+            // spawn new prefabs1
+            SpawnPrefabs(mapData.prefab1SpawnPoints, prefabsData.prefab1Types);
 
-            //spawn new stones
-            SpawnPrefabs(mapData.stoneSpawnPoints, prefabsData.stonePrefabs);
+            //spawn new prefabs2
+            SpawnPrefabs(mapData.prefab2SpawnPoints, prefabsData.prefab2Types);
+            
+            //spawn new prefabs3
+            SpawnPrefabs(mapData.prefab3SpawnPoints, prefabsData.prefab3Types);
+            
+            //spawn new prefabs4
+            SpawnPrefabs(mapData.prefab4SpawnPoints, prefabsData.prefab4Types);
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
@@ -236,44 +242,72 @@ public class MapGenerator : MonoBehaviour
         }
 
         System.Random random = new System.Random();
-        List<Vector3> treeSpawnPoints = new List<Vector3>();
-        List<Vector3> stoneSpawnPoints = new List<Vector3>();
+        List<Vector3> prefab1SpawnPoints = new List<Vector3>();
+        List<Vector3> prefab2SpawnPoints = new List<Vector3>();
+        List<Vector3> prefab3SpawnPoints = new List<Vector3>();
+        List<Vector3> prefab4SpawnPoints = new List<Vector3>();
         List<Vector3> spawnPoints = new List<Vector3>();
 
         for (int y = 0; y < mapChunkSize; y++)
         {
             for (int x = 0; x < mapChunkSize; x++)
             {
-                // set spawn points for trees
-                if (heightMap[x, y] >= prefabsData.treeMinSpawnHeight && heightMap[x, y] <= prefabsData.treeMaxSpawnHeight &&
-                    random.NextDouble() <= prefabsData.treeDensity)
+                // set spawn points for prefab1
+                if (heightMap[x, y] >= prefabsData.prefab1MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab1MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab1Density)
                 {
-                    Vector3 treeSpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.treeSpawnHeightMultiplier);
+                    Vector3 prefab1SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab1SpawnHeightMultiplier);
 
-                    if (!prefabsData.collisionFreeSpawning || CheckCollision(spawnPoints, treeSpawnPoint))
+                    if (!prefabsData.collisionFreeSpawning || CheckCollision(spawnPoints, prefab1SpawnPoint))
                     {
-                        treeSpawnPoints.Add(treeSpawnPoint);
-                        spawnPoints.Add(treeSpawnPoint);
+                        prefab1SpawnPoints.Add(prefab1SpawnPoint);
+                        spawnPoints.Add(prefab1SpawnPoint);
                     }
                 }
 
-                // set spawn points for stones
-                if (heightMap[x, y] >= prefabsData.stoneMinSpawnHeight && heightMap[x, y] <= prefabsData.stoneMaxSpawnHeight &&
-                    random.NextDouble() <= prefabsData.stoneDensity)
+                // set spawn points for prefab2
+                if (heightMap[x, y] >= prefabsData.prefab2MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab2MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab2Density)
                 {
-                    Vector3 stoneSpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.stoneSpawnHeightMultiplier);
+                    Vector3 prefab2SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab2SpawnHeightMultiplier);
 
-                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, stoneSpawnPoint))
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab2SpawnPoint))
                     {
-                        stoneSpawnPoints.Add(stoneSpawnPoint);
-                        spawnPoints.Add(stoneSpawnPoint);
+                        prefab2SpawnPoints.Add(prefab2SpawnPoint);
+                        spawnPoints.Add(prefab2SpawnPoint);
+                    }
+                }
+                
+                // set spawn points for prefab3
+                if (heightMap[x, y] >= prefabsData.prefab2MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab2MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab2Density)
+                {
+                    Vector3 prefab2SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab2SpawnHeightMultiplier);
+
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab2SpawnPoint))
+                    {
+                        prefab2SpawnPoints.Add(prefab2SpawnPoint);
+                        spawnPoints.Add(prefab2SpawnPoint);
+                    }
+                }
+                
+                // set spawn points for prefab4
+                if (heightMap[x, y] >= prefabsData.prefab2MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab2MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab2Density)
+                {
+                    Vector3 prefab2SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab2SpawnHeightMultiplier);
+
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab2SpawnPoint))
+                    {
+                        prefab2SpawnPoints.Add(prefab2SpawnPoint);
+                        spawnPoints.Add(prefab2SpawnPoint);
                     }
                 }
             }
         }
 
 
-        return new MapData(heightMap, treeSpawnPoints, stoneSpawnPoints);
+        return new MapData(heightMap, prefab1SpawnPoints, prefab2SpawnPoints, prefab3SpawnPoints, prefab4SpawnPoints);
     }
 
     private bool CheckCollision(List<Vector3> spawnPoints, Vector3 treeSpawnPoint)
@@ -355,13 +389,18 @@ public class MapGenerator : MonoBehaviour
 public struct MapData
 {
     public readonly float[,] heightMap;
-    public readonly List<Vector3> treeSpawnPoints;
-    public readonly List<Vector3> stoneSpawnPoints;
+    public readonly List<Vector3> prefab1SpawnPoints;
+    public readonly List<Vector3> prefab2SpawnPoints;
+    public readonly List<Vector3> prefab3SpawnPoints;
+    public readonly List<Vector3> prefab4SpawnPoints;
 
-    public MapData(float[,] heightMap, List<Vector3> treeSpawnPoints, List<Vector3> stoneSpawnPoints)
+    public MapData(float[,] heightMap, List<Vector3> prefab1SpawnPoints, List<Vector3> prefab2SpawnPoints,
+        List<Vector3> prefab3SpawnPoints, List<Vector3> prefab4SpawnPoints)
     {
         this.heightMap = heightMap;
-        this.treeSpawnPoints = treeSpawnPoints;
-        this.stoneSpawnPoints = stoneSpawnPoints;
+        this.prefab1SpawnPoints = prefab1SpawnPoints;
+        this.prefab2SpawnPoints = prefab2SpawnPoints;
+        this.prefab3SpawnPoints = prefab3SpawnPoints;
+        this.prefab4SpawnPoints = prefab4SpawnPoints;
     }
 }

@@ -10,26 +10,48 @@ public class PrefabsData : UpdatableData
     [Range(0, 50f)]
     public float minSpawnDistance;
     
-    [Header("Trees")]
-    public GameObject[] treePrefabs;
+    [Header("Prefab1")]
+    public GameObject[] prefab1Types;
     [Range(0,0.1f)]
-    public float treeDensity = 0.01f;
+    public float prefab1Density = 0.01f;
     [Range(0,1.5f)]
-    public float treeMinSpawnHeight = 0.3f;
+    public float prefab1MinSpawnHeight = 0.3f;
     [Range(0,1.5f)]
-    public float treeMaxSpawnHeight = 0.5f;
+    public float prefab1MaxSpawnHeight = 0.5f;
     [Range(0, 5f)]
-    public float treeSpawnHeightMultiplier = 1.5f;
+    public float prefab1SpawnHeightMultiplier = 1.5f;
     
-    [Header("Stones")]
-    public GameObject[] stonePrefabs;
+    [Header("Prefab2")]
+    public GameObject[] prefab2Types;
     [Range(0,0.1f)]
-    public float stoneDensity = 0.01f;
+    public float prefab2Density = 0.01f;
     [Range(0,1.5f)]
-    public float stoneMinSpawnHeight = 0.3f;
+    public float prefab2MinSpawnHeight = 0.3f;
     [Range(0,1.5f)]
-    public float stoneMaxSpawnHeight = 0.5f;
+    public float prefab2MaxSpawnHeight = 0.5f;
     [Range(0, 5f)]
-    public float stoneSpawnHeightMultiplier = 1.5f;
+    public float prefab2SpawnHeightMultiplier = 1.5f;
+    
+    [Header("Prefab3")]
+    public GameObject[] prefab3Types;
+    [Range(0,0.1f)]
+    public float prefab3Density = 0.01f;
+    [Range(0,1.5f)]
+    public float prefab3MinSpawnHeight = 0.3f;
+    [Range(0,1.5f)]
+    public float prefab3MaxSpawnHeight = 0.5f;
+    [Range(0, 5f)]
+    public float prefab3SpawnHeightMultiplier = 1.5f;
+    
+    [Header("Prefab4")]
+    public GameObject[] prefab4Types;
+    [Range(0,0.1f)]
+    public float prefab4Density = 0.01f;
+    [Range(0,1.5f)]
+    public float prefab4MinSpawnHeight = 0.3f;
+    [Range(0,1.5f)]
+    public float prefab4MaxSpawnHeight = 0.5f;
+    [Range(0, 5f)]
+    public float prefab4SpawnHeightMultiplier = 1.5f;
     
 }
