@@ -12,7 +12,7 @@ public class PrefabsData : UpdatableData
     
     [Header("Prefab1")]
     public GameObject[] prefab1Types;
-    [Range(0,0.1f)]
+    [Range(0,0.2f)]
     public float prefab1Density = 0.01f;
     [Range(0,1.5f)]
     public float prefab1MinSpawnHeight = 0.3f;
@@ -23,7 +23,7 @@ public class PrefabsData : UpdatableData
     
     [Header("Prefab2")]
     public GameObject[] prefab2Types;
-    [Range(0,0.1f)]
+    [Range(0,0.2f)]
     public float prefab2Density = 0.01f;
     [Range(0,1.5f)]
     public float prefab2MinSpawnHeight = 0.3f;
@@ -34,7 +34,7 @@ public class PrefabsData : UpdatableData
     
     [Header("Prefab3")]
     public GameObject[] prefab3Types;
-    [Range(0,0.1f)]
+    [Range(0,0.2f)]
     public float prefab3Density = 0.01f;
     [Range(0,1.5f)]
     public float prefab3MinSpawnHeight = 0.3f;
@@ -45,7 +45,7 @@ public class PrefabsData : UpdatableData
     
     [Header("Prefab4")]
     public GameObject[] prefab4Types;
-    [Range(0,0.1f)]
+    [Range(0,0.2f)]
     public float prefab4Density = 0.01f;
     [Range(0,1.5f)]
     public float prefab4MinSpawnHeight = 0.3f;
