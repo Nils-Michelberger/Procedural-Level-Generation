@@ -364,18 +364,19 @@ public class MapGenerator : MonoBehaviour
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Desert/Prefabs");
                 mesh.GetComponent<MeshRenderer>().material = terrainMaterial;
                 break;
-            case Biome.Jungle:
-                terrainData = Resources.Load<TerrainData>("Terrain Assets/Jungle/Terrain");
-                noiseData = Resources.Load<NoiseData>("Terrain Assets/Jungle/Noise");
-                textureData = Resources.Load<TextureData>("Terrain Assets/Jungle/Texture");
-                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Jungle/Prefabs");
-                break;
             case Biome.Sea:
                 terrainData = Resources.Load<TerrainData>("Terrain Assets/Sea/Terrain");
                 noiseData = Resources.Load<NoiseData>("Terrain Assets/Sea/Noise");
                 textureData = Resources.Load<TextureData>("Terrain Assets/Sea/Texture");
                 prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Sea/Prefabs");
                 mesh.GetComponent<MeshRenderer>().material = seaMaterial;
+                break;
+            case Biome.Jungle:
+                terrainData = Resources.Load<TerrainData>("Terrain Assets/Jungle/Terrain");
+                noiseData = Resources.Load<NoiseData>("Terrain Assets/Jungle/Noise");
+                textureData = Resources.Load<TextureData>("Terrain Assets/Jungle/Texture");
+                prefabsData = Resources.Load<PrefabsData>("Terrain Assets/Jungle/Prefabs");
+                mesh.GetComponent<MeshRenderer>().material = terrainMaterial;
                 break;
         }
         
