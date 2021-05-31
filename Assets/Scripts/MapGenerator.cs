@@ -279,28 +279,28 @@ public class MapGenerator : MonoBehaviour
                 }
                 
                 // set spawn points for prefab3
-                if (heightMap[x, y] >= prefabsData.prefab2MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab2MaxSpawnHeight &&
-                    random.NextDouble() <= prefabsData.prefab2Density)
+                if (heightMap[x, y] >= prefabsData.prefab3MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab3MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab3Density)
                 {
-                    Vector3 prefab2SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab2SpawnHeightMultiplier);
+                    Vector3 prefab3SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab3SpawnHeightMultiplier);
 
-                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab2SpawnPoint))
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab3SpawnPoint))
                     {
-                        prefab2SpawnPoints.Add(prefab2SpawnPoint);
-                        spawnPoints.Add(prefab2SpawnPoint);
+                        prefab3SpawnPoints.Add(prefab3SpawnPoint);
+                        spawnPoints.Add(prefab3SpawnPoint);
                     }
                 }
                 
                 // set spawn points for prefab4
-                if (heightMap[x, y] >= prefabsData.prefab2MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab2MaxSpawnHeight &&
-                    random.NextDouble() <= prefabsData.prefab2Density)
+                if (heightMap[x, y] >= prefabsData.prefab4MinSpawnHeight && heightMap[x, y] <= prefabsData.prefab4MaxSpawnHeight &&
+                    random.NextDouble() <= prefabsData.prefab4Density)
                 {
-                    Vector3 prefab2SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab2SpawnHeightMultiplier);
+                    Vector3 prefab4SpawnPoint = GetSpawnPoint(center, heightMap, x, y, prefabsData.prefab4SpawnHeightMultiplier);
 
-                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab2SpawnPoint))
+                    if (!prefabsData.collisionFreeSpawning ||CheckCollision(spawnPoints, prefab4SpawnPoint))
                     {
-                        prefab2SpawnPoints.Add(prefab2SpawnPoint);
-                        spawnPoints.Add(prefab2SpawnPoint);
+                        prefab2SpawnPoints.Add(prefab4SpawnPoint);
+                        spawnPoints.Add(prefab4SpawnPoint);
                     }
                 }
             }
