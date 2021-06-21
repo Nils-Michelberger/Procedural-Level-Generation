@@ -240,7 +240,7 @@ public class MapGenerator : MonoBehaviour
                     if (terrainData.useFalloff)
                     {
                         // value at the end indicates falloff strength
-                        heightMap[x, y] = Mathf.Clamp01(heightMap[x, y] - (falloffMap[x, y] * 1.5f));
+                        heightMap[x, y] = heightMap[x, y] - (falloffMap[x, y] * 1.5f);
                     }
                 }
             }
