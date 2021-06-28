@@ -106,9 +106,12 @@ public class MapGenerator : MonoBehaviour
                 terrainData.meshHeightCurve, editorPreviewLevelOfDetail, terrainData.useFlatShading));
 
             // clear all prefabs
-            for (int i = mesh.childCount; i > 0; i--)
+            if (mesh != null)
             {
-                DestroyImmediate(mesh.transform.GetChild(0).gameObject);
+                for (int i = mesh.childCount; i > 0; i--)
+                {
+                    DestroyImmediate(mesh.transform.GetChild(0).gameObject);
+                }
             }
 
             if (prefabsData.spawnObjects)
