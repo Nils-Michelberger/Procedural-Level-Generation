@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Prefabs
   m_EditorClassIdentifier: 
   autoUpdate: 1
+  spawnObjects: 1
   collisionFreeSpawning: 1
   minSpawnDistance: 15
   prefab1Types:

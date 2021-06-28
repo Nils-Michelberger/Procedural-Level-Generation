@@ -6,6 +6,7 @@ using UnityEngine;
 public class PrefabsData : UpdatableData
 {
     [Header("General")]
+    public bool spawnObjects;
     public bool collisionFreeSpawning;
     [Range(0, 200f)]
     public float minSpawnDistance;
